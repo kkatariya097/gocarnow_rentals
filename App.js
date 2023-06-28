@@ -5,6 +5,8 @@ export default function App() {
   return (
     <View style={styles.container}>
       <Text>Open up App.js to start working on your app!</Text>
+      <Text>New New line to git</Text>
+      <Text>Second line to git</Text>
       <Text>New line to git</Text>
       <StatusBar style="auto" />
     </View>
