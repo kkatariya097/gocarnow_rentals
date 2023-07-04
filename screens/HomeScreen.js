@@ -3,12 +3,35 @@ import { StyleSheet, Button, View, Image, Text, ScrollView, Modal, TouchableOpac
 import { useEffect, useState } from 'react';
 import Logo from './Logo';
 import { TextInput } from 'react-native-gesture-handler';
-
+import CalendarPicker from 'react-native-calendar-picker';
 
 export default function HomeScreen({ navigation }) {
 
 const image = require("../images/backbround.jpg");
 
+const [date, setDate] = useState(new Date())
+const [selectedStartDate, setSelectedStartDate] = useState(new Date())
+const [selectedEndDate, setSelectedEndDate] = useState(new Date())
+const [showStartDatePicker, setShowStartDatePicker] = useState(false);
+const [showEndDatePicker, setShowEndDatePicker] = useState(false);
+
+const handleStartDateChange = (date) => {
+  setSelectedStartDate(date);
+  setShowStartDatePicker(false);
+};
+
+const handleEndDateChange = (date) => {
+  setSelectedEndDate(date);
+  setShowEndDatePicker(false);
+};
+
+useEffect(() => {
+}, []);
+
+const minDate = new Date(); // Today
+const maxDate = new Date(2024, 12, 12);
+const startDate  =  selectedStartDate ? selectedStartDate.toString() : '';
+const endDate = selectedEndDate ? selectedEndDate.toString() : '';
 
 // Sample data for the FlatList
 const carData = [
@@ -56,6 +79,7 @@ const [modalVisible, setModalVisible] = useState(false);
       <View style={styles.containerselect}>
       <Text style={styles.text}>Own a car without actually buying it. So book now...</Text>
       <Text style={styles.textcontainerselect} >Select Pick-up Location</Text>
+
       <TouchableOpacity onPress={() => setModalVisible(true)}>
       <TextInput style= {styles.textinputselect} 
         placeholder='Select Location' 
@@ -85,10 +109,52 @@ const [modalVisible, setModalVisible] = useState(false);
       </Modal>
       
       <Text style={styles.textcontainerselect}>Start Trip</Text>
-      <TextInput style= {styles.textinputselect} placeholder='Select Trip Start Date' placeholderTextColor="white"></TextInput>
-    
+      <TouchableOpacity onPress={() => setShowStartDatePicker(true)}>
+        <TextInput
+          style={styles.textinputselect}
+          placeholder="Select Trip Start Date"
+          placeholderTextColor="white"
+          value={selectedStartDate ? selectedStartDate.toString() : ''}
+          editable={false}
+        />
+      </TouchableOpacity>
+
+      <Modal visible={showStartDatePicker} animationType="slide" transparent={true}>
+        <View style={styles.modalOverlay}>
+          <View style={styles.modalContainer}>
+            <CalendarPicker
+              onDateChange={handleStartDateChange}
+              minDate={minDate}
+              maxDate={maxDate}
+              selectedDayStyle={{ backgroundColor: 'white', borderRadius: 16 }}
+            />
+          </View>
+        </View>
+      </Modal>
+
       <Text style={styles.textcontainerselect}>End Trip</Text>
-      <TextInput style= {styles.textinputselect} placeholder='Select Trip End Date' placeholderTextColor="white"></TextInput>
+      <TouchableOpacity onPress={() => setShowEndDatePicker(true)}>
+        <TextInput
+          style={styles.textinputselect}
+          placeholder="Select Trip End Date"
+          placeholderTextColor="white"
+          value={selectedEndDate ? selectedEndDate.toString() : ''}
+          editable={false}
+        />
+      </TouchableOpacity>
+
+      <Modal visible={showEndDatePicker} animationType="slide" transparent={true}>
+        <View style={styles.modalOverlay}>
+          <View style={styles.modalContainer}>
+            <CalendarPicker
+              onDateChange={handleEndDateChange}
+              minDate={minDate}
+              maxDate={maxDate}
+            />
+          </View>
+        </View>
+      </Modal>
+
       <Pressable style={styles.buttonselect} >
      
       <Text style={styles.textselect}>Book Car</Text>
@@ -102,8 +168,8 @@ const [modalVisible, setModalVisible] = useState(false);
       renderItem={renderItem}
       keyExtractor={(item) => item.id}
       contentContainerStyle={styles.flatListContainer}
-      horizontal // Set the horizontal prop to true
-      showsHorizontalScrollIndicator={false} // Optional: Hide horizontal scroll indicator
+      horizontal 
+      showsHorizontalScrollIndicator={false} 
     />
 
     <StatusBar style="auto" />
@@ -208,7 +274,6 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: '700',
     marginTop: 10,
-    paddingBottom: 10,
   }
 
 });

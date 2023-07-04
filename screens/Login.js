@@ -6,6 +6,8 @@ import RegisterNew from './RegisterNew'
 
 import Logo from './Logo';
 
+
+
 const Login = ({ navigation }) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -63,19 +65,20 @@ const Login = ({ navigation }) => {
     const handleRegister = () => {
       navigation.navigate('RegisterNew');
     };
+
+    
     
   return (
     <View style={styles.container}>
       <Logo/>
-        {/* {/* <Image source={require('../images/Logo.jpg')} 
-            style={styles.image}></Image> */}
-            <Text>Login Page</Text>
+            <Text style={styles.titleLogin}>Login Page</Text>
             <TextInput
             placeholder="Username"
             value={username}
             onChangeText={setUsername}
             style={styles.namestyle}
             />
+
             <TextInput
             placeholder="Password"
             value={password}
@@ -114,6 +117,12 @@ const styles = StyleSheet.create({
   image: {
     width: 350, 
     height: 150,
+  },
+  titleLogin:{
+    fontSize: 20,
+    fontWeight: '700',
+    marginTop: 10,
+    paddingBottom: 10,
   },
 });
 
