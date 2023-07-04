@@ -114,13 +114,20 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
   },
   namestyle:
   {
+    width: 300,
+    height: 40,
+    backgroundColor: '#fff',
+    paddingVertical: 10,
+    paddingHorizontal: 15,
+    borderColor: '#ccc',
     borderWidth: 1,
-    padding: 10, 
-    marginVertical: 10,
+    borderRadius: 15, 
+    fontSize: 16,
+    marginBottom: 10,
   },
   button:
   {

@@ -100,9 +100,16 @@ const styles = StyleSheet.create({
   },
   namestyle:
   {
+    width: 300,
+    height: 40,
+    backgroundColor: '#fff',
+    paddingVertical: 10,
+    paddingHorizontal: 15,
+    borderColor: '#ccc',
     borderWidth: 1,
-    padding: 10, 
-    marginVertical: 10,
+    borderRadius: 15, 
+    fontSize: 16,
+    marginBottom: 10,
   },
   image: {
     width: 350, 
