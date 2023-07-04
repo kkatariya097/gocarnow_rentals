@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { StyleSheet, View, Image } from 'react-native';
+import Logo from './Logo';
 
 const TitlePage = ({ navigation }) => {
   useEffect(() => {
@@ -13,9 +14,10 @@ const TitlePage = ({ navigation }) => {
   return (
     <View style={styles.container}>
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Image source={require('../images/Logo.jpg')} 
+    <Logo/>
+      {/* // <Image source={require('../images/Logo.jpg')} 
       style={styles.image}
-      />
+      /> */}
     </View>
     </View>
   );
