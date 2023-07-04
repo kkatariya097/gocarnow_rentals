@@ -7,6 +7,7 @@ import CalendarPicker from 'react-native-calendar-picker';
 
 export default function HomeScreen({ navigation }) {
 
+  //For Background Image
 const image = require("../images/backbround.jpg");
 
 const [date, setDate] = useState(new Date())
@@ -15,11 +16,13 @@ const [selectedEndDate, setSelectedEndDate] = useState(new Date())
 const [showStartDatePicker, setShowStartDatePicker] = useState(false);
 const [showEndDatePicker, setShowEndDatePicker] = useState(false);
 
+// To set start date : need to add this in table 
 const handleStartDateChange = (date) => {
   setSelectedStartDate(date);
   setShowStartDatePicker(false);
 };
 
+// To set End Date : need to add this in table 
 const handleEndDateChange = (date) => {
   setSelectedEndDate(date);
   setShowEndDatePicker(false);
@@ -33,16 +36,17 @@ const maxDate = new Date(2024, 12, 12);
 const startDate  =  selectedStartDate ? selectedStartDate.toString() : '';
 const endDate = selectedEndDate ? selectedEndDate.toString() : '';
 
-// Sample data for the FlatList
+// Car Data for Hot Deals 
 const carData = [
   { id: '1', deals: '30% OFF', title: 'Audi', image: require('../images/audi.jpg'), rateperday:'$180 | Day', seat: '5 seat' },
   { id: '2', deals: '20% OFF', title: 'BMW', image: require('../images/bmw.jpg'), rateperday:'$70 | Day',  seat: '4 seat'},
   { id: '3', deals: '50% OFF', title: 'Dodge', image: require('../images/dodge.jpg'), rateperday:'$40 | Day', seat: '7 seat'},
   { id: '4', deals: '10% OFF', title: 'Fiat', image: require('../images/fiat.jpg'), rateperday:'$90 | Day', seat: '4 seat'},
   { id: '5', deals: '20% OFF', title: 'Ford', image: require('../images/ford.jpg'), rateperday:'$100 | Day', seat: '5 seat'},
-  // Add more data as needed
+  
 ];
 
+// Hot Deal Each Box Template
 const renderItem = ({ item }) => (
   <View style={styles.itemContainer}>
     <Text style={{color:'red'}}>{item.deals}</Text>
@@ -56,6 +60,8 @@ const renderItem = ({ item }) => (
 
 const [modalVisible, setModalVisible] = useState(false);
   const [selectedValue, setSelectedValue] = useState('');
+
+  // Address Data of our offices for Car Pick Up
   const data = ['5186 Québec 132, Sainte-Catherine, Montreal', 
                 '279 Bd Sir Wilfrid Laurier, Mont-Saint-Hilaire, Montreal',
                 '1279 Rue Saint Marc, Montréal', 
@@ -63,8 +69,10 @@ const [modalVisible, setModalVisible] = useState(false);
                 '68 Rue Court, Montreal', 
                 '1551 Boulevard Shevchenko, Montreal', 
                 '1370 Chemin Royal, Montreal',
-                '97 Boul Cartier, Montreal'];
+                '97 Boul Cartier, Montreal'
+              ];
 
+  // To set selected Address for Pick up : need to add this in table 
   const handleItemPress = (item) => {
     setSelectedValue(item);
     setModalVisible(false);
@@ -77,7 +85,9 @@ const [modalVisible, setModalVisible] = useState(false);
       <ScrollView>
     <ImageBackground source={image} resizeMode="cover" style={styles.image}>
       <View style={styles.containerselect}>
+
       <Text style={styles.text}>Own a car without actually buying it. So book now...</Text>
+
       <Text style={styles.textcontainerselect} >Select Pick-up Location</Text>
 
       <TouchableOpacity onPress={() => setModalVisible(true)}>
@@ -88,6 +98,7 @@ const [modalVisible, setModalVisible] = useState(false);
         editable={false}>
         </TextInput>
       </TouchableOpacity>
+
       <Modal visible={modalVisible} animationType="slide" transparent={true}>
         <TouchableOpacity
           style={styles.modalOverlay}
@@ -109,6 +120,7 @@ const [modalVisible, setModalVisible] = useState(false);
       </Modal>
       
       <Text style={styles.textcontainerselect}>Start Trip</Text>
+
       <TouchableOpacity onPress={() => setShowStartDatePicker(true)}>
         <TextInput
           style={styles.textinputselect}
@@ -133,6 +145,7 @@ const [modalVisible, setModalVisible] = useState(false);
       </Modal>
 
       <Text style={styles.textcontainerselect}>End Trip</Text>
+      
       <TouchableOpacity onPress={() => setShowEndDatePicker(true)}>
         <TextInput
           style={styles.textinputselect}

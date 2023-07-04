@@ -32,6 +32,7 @@ const Login = ({ navigation }) => {
     });  
   }, []);
 
+  // Check for the customer in customer table: Currently Bypassing this value
     const handleLogin = () => {  
       //   db.transaction((tx) => {
       //     tx.executeSql(
@@ -58,10 +59,11 @@ const Login = ({ navigation }) => {
       } else {
         Alert.alert('Error','Wrong user name or password')
       }
-      // Handle login logic here
+      
       console.log('Login', username, password);
     };
   
+    // Go to RegisterNow Page
     const handleRegister = () => {
       navigation.navigate('RegisterNew');
     };

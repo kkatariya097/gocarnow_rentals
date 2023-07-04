@@ -10,8 +10,11 @@ const RegisterNew = ({ navigation }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [customers, setCustomers] = useState([]);
+
+  //Database Name: gocarnow.db
   const db = SQLite.openDatabase('gocarnow.db');
 
+  //Table name: customers
   useEffect(() => {
     db.transaction(tx => {
       tx.executeSql('CREATE TABLE IF NOT EXISTS customers (id INTEGER PRIMARY KEY AUTOINCREMENT, firstname TEXT, lastname TEXT, dob TEXT, username TEXT, password TEXT)');
@@ -30,6 +33,7 @@ const RegisterNew = ({ navigation }) => {
     });  
   }, []);
 
+  // When user register of the first time: Data insertion in customers table
   const handleRegister = () => {  
       db.transaction((tx) => {
         tx.executeSql(
@@ -59,7 +63,7 @@ const RegisterNew = ({ navigation }) => {
       
     };
     
-
+// Go to Login Page
   const handleLogin = () => {
     navigation.navigate('Login');
   };
