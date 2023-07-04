@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { StyleSheet, View, Image } from 'react-native';
 import Logo from './Logo';
 
+//Logo Screen Display for 2 seconds 
 const TitlePage = ({ navigation }) => {
   useEffect(() => {
     const timer = setTimeout(() => {

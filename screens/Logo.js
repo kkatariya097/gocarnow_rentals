@@ -1,4 +1,6 @@
 import { Image, View } from "react-native";
+
+//Logo Display File
 export default function Logo() {
   return (
     <View style={{ backgroundColor: "#050A30" }}>
