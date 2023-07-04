@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Button, View, Image, Text, ScrollView, Modal, TouchableOpacity, ImageBackground, Pressable} from 'react-native';
+import { StyleSheet, Button, View, Image, Text, ScrollView, Modal, TouchableOpacity, ImageBackground, Pressable, FlatList} from 'react-native';
 import { useEffect, useState } from 'react';
 import Logo from './Logo';
 import { TextInput } from 'react-native-gesture-handler';
@@ -9,17 +9,43 @@ export default function HomeScreen({ navigation }) {
 
 const image = require("../images/backbround.jpg");
 
+
+// Sample data for the FlatList
+const carData = [
+  { id: '1', deals: '30% OFF', title: 'Audi', image: require('../images/audi.jpg'), rateperday:'$180 | Day', seat: '5 seat' },
+  { id: '2', deals: '20% OFF', title: 'BMW', image: require('../images/bmw.jpg'), rateperday:'$70 | Day',  seat: '4 seat'},
+  { id: '3', deals: '50% OFF', title: 'Dodge', image: require('../images/dodge.jpg'), rateperday:'$40 | Day', seat: '7 seat'},
+  { id: '4', deals: '10% OFF', title: 'Fiat', image: require('../images/fiat.jpg'), rateperday:'$90 | Day', seat: '4 seat'},
+  { id: '5', deals: '20% OFF', title: 'Ford', image: require('../images/ford.jpg'), rateperday:'$100 | Day', seat: '5 seat'},
+  // Add more data as needed
+];
+
+const renderItem = ({ item }) => (
+  <View style={styles.itemContainer}>
+    <Text style={{color:'red'}}>{item.deals}</Text>
+    <Text style={{fontSize: 16, fontWeight: '600'}}>{item.title}</Text>
+    <Image source={item.image} style={styles.image1} />
+    <Text style={{color: 'blue'}}>{item.rateperday}</Text>
+  </View>
+);
+
   
 
 const [modalVisible, setModalVisible] = useState(false);
   const [selectedValue, setSelectedValue] = useState('');
-  const data = ['5186 Québec 132, Sainte-Catherine, Montreal', '279 Bd Sir Wilfrid Laurier, Mont-Saint-Hilaire, Montreal', '1279 Rue Saint Marc, Montréal', '217 St Joseph, Montreal', '68 Rue Court, Montreal', '1551 Boulevard Shevchenko, Montreal', '1370 Chemin Royal, Montreal','97 Boul Cartier, Montreal'];
+  const data = ['5186 Québec 132, Sainte-Catherine, Montreal', 
+                '279 Bd Sir Wilfrid Laurier, Mont-Saint-Hilaire, Montreal',
+                '1279 Rue Saint Marc, Montréal', 
+                '217 St Joseph, Montreal', 
+                '68 Rue Court, Montreal', 
+                '1551 Boulevard Shevchenko, Montreal', 
+                '1370 Chemin Royal, Montreal',
+                '97 Boul Cartier, Montreal'];
 
   const handleItemPress = (item) => {
     setSelectedValue(item);
     setModalVisible(false);
   };
-
 
 
   return (
@@ -58,23 +84,30 @@ const [modalVisible, setModalVisible] = useState(false);
         </TouchableOpacity>
       </Modal>
       
-      
-
-
-
       <Text style={styles.textcontainerselect}>Start Trip</Text>
-      <TextInput style= {styles.textinputselect} placeholder='Select Trip Start Date' placeholderTextColor="white">  </TextInput>
+      <TextInput style= {styles.textinputselect} placeholder='Select Trip Start Date' placeholderTextColor="white"></TextInput>
     
       <Text style={styles.textcontainerselect}>End Trip</Text>
-      <TextInput style= {styles.textinputselect} placeholder='Select Trip End Date'placeholderTextColor="white"></TextInput>
+      <TextInput style= {styles.textinputselect} placeholder='Select Trip End Date' placeholderTextColor="white"></TextInput>
       <Pressable style={styles.buttonselect} >
      
       <Text style={styles.textselect}>Book Car</Text>
     </Pressable>
       </View>
     </ImageBackground>
-    </ScrollView>
+
+    <Text style={styles.titlehotdeal}>Hot Deals</Text>
+    <FlatList
+      data={carData}
+      renderItem={renderItem}
+      keyExtractor={(item) => item.id}
+      contentContainerStyle={styles.flatListContainer}
+      horizontal // Set the horizontal prop to true
+      showsHorizontalScrollIndicator={false} // Optional: Hide horizontal scroll indicator
+    />
+
     <StatusBar style="auto" />
+    </ScrollView>
   </View>
   );
 }
@@ -156,5 +189,26 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: 'gray',
   },
+  flatListContainer: {
+    paddingHorizontal: 16,
+  },
+  itemContainer: {
+    alignItems: 'center',
+    padding: 16,
+    marginRight: 8,
+    borderRadius: 8,
+    backgroundColor: '#f0f0f0',
+  },
+  image1: {
+    width: 120,
+    height: 120,
+
+  },
+  titlehotdeal:{
+    fontSize: 20,
+    fontWeight: '700',
+    marginTop: 10,
+    paddingBottom: 10,
+  }
 
 });
