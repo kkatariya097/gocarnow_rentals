@@ -18,10 +18,8 @@ import * as SQLite from "expo-sqlite";
 import Logo from "./Logo";
 import { TextInput } from "react-native-gesture-handler";
 
-export default function SelectCar({ navigation }) {
-  //   const image = require("../images/backbround.jpg");
+export default function SelectCar({ navigation, route }) {
 
-  // Sample data for the FlatList
   const carData = [
     {
       id: "1",
@@ -66,26 +64,25 @@ export default function SelectCar({ navigation }) {
     // Add more data as needed
   ];
 
-  const [cars, setCars] = useState(carData);
-  const [rate, setRate] = useState("");
-  const [totalPrice, setTotalPrice] = useState("");
-  const [username, setUsername] = useState("");
   const [reservations, setReservations] = useState([]);
+  const [newReservation, setNewReservation] = useState([]);
   const db = SQLite.openDatabase("gocarnow.db");
 
   useEffect(() => {
-    console.log("Reservations", reservations);
+   // console.log("Reservations", reservations);
     db.transaction((tx) => {
       tx.executeSql(
-        "CREATE TABLE IF NOT EXISTS reservations (id INTEGER PRIMARY KEY AUTOINCREMENT, car TEXT, rate TEXT, totalprice TEXT, username TEXT)"
+        // "DROP TABLE reservations"
+        "CREATE TABLE IF NOT EXISTS reservations (id INTEGER PRIMARY KEY AUTOINCREMENT, car TEXT, rate TEXT, totalprice TEXT, username TEXT, location TEXT, startdate TEXT, enddate TEXT)"
       );
     });
     db.transaction((tx) => {
       const SuccessLoadingGoCarNow = (txObj, resultSet) =>
-        setCars(resultSet.rows._array);
+      setReservations(resultSet.rows._array);
       const errorLoadingGoCarNow = (txObj, error) =>
         console.log("Error, ", error);
       tx.executeSql(
+        // "DROP TABLE reservations",
         "SELECT * FROM reservations", // SQL Statement
         null, // Args
         SuccessLoadingGoCarNow, // Success callback
@@ -113,22 +110,23 @@ export default function SelectCar({ navigation }) {
   const handleBook = (car) => {
     db.transaction((tx) => {
       tx.executeSql(
-        "INSERT INTO reservations (car, rate, totalprice, username) VALUES (?,?,?,?)",
-        [car.title, car.rateperday, car.rateperday * 2, "vanier"],
+        "INSERT INTO reservations (car, rate, totalprice, username, location, startdate, enddate) VALUES (?,?,?,?,?,?,?)",
+        [car.title, car.rateperday, car.rateperday, "vanier", route.params.selectedValue, route.params.startDate, route.params.endDate],
         (txObj, resultSet) => {
-          const carsToInsert = [...reservations];
-          carsToInsert.push({
+          const carToInsert = [...newReservation];
+          carToInsert.push({
             id: resultSet.insertId,
-            title: car.title,
-            rateperday: car.rateperday,
-            totalprice: car.rateperday * 2,
+            car: car.title,
+            rate: car.rateperday,
+            totalprice: car.rateperday,
             username: "vanier",
+            location: route.params.selectedValue, 
+            startdate: route.params.startDate, 
+            enddate: route.params.endDate,
+            image: car.image,
           });
-          console.log("sql execution?");
-          Alert.alert("Success", "Book confirmed.");
-          setReservations(carsToInsert);
-          console.log("Reservations", reservations);
-          navigation.navigate("Reservations");
+          setNewReservation(carToInsert);
+          navigation.navigate('ConfirmReservation', {carToInsert, reservations});
         },
         (txObj, error) => {
           console.log("Error", error);

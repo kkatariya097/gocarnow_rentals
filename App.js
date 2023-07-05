@@ -8,7 +8,6 @@ import Login from "./screens/Login";
 import HomeScreen from "./screens/HomeScreen";
 import RegisterNew from "./screens/RegisterNew";
 import SelectCar from "./screens/SelectCar";
-import Reservations from "./screens/Reservations";
 import ConfirmReservation from "./screens/ConfirmReservation";
 
 const Stack = createNativeStackNavigator();
@@ -40,11 +39,6 @@ export default function App() {
           name="SelectCar"
           component={SelectCar}
           options={{ title: "Select a car" }}
-        />
-        <Stack.Screen
-          name="Reservations"
-          component={Reservations}
-          options={{ title: "Reservations" }}
         />
         <Stack.Screen
           name="ConfirmReservation"

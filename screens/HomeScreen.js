@@ -99,7 +99,7 @@ const [modalVisible, setModalVisible] = useState(false);
       alert('End date should be after the start date.');
       return;
     }
-    navigation.navigate('SelectCar');
+    navigation.navigate('SelectCar', {selectedValue, startDate, endDate});
   };
 
 

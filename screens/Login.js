@@ -6,10 +6,8 @@ import RegisterNew from './RegisterNew'
 
 import Logo from './Logo';
 
-
-
 const Login = ({ navigation }) => {
-    const [username, setUsername] = useState('');
+    const [user, setUser] = useState('');
     const [password, setPassword] = useState('');
     const [customers, setCustomers] = useState([]);
     const db = SQLite.openDatabase('gocarnow.db');
@@ -34,17 +32,19 @@ const Login = ({ navigation }) => {
 
   // Check for the customer in customer table: Currently Bypassing this value
     const handleLogin = () => {  
+      // console.log(user);
+      // console.log('customers', customers);
       //   db.transaction((tx) => {
       //     tx.executeSql(
-      //       'SELECT password FROM customers WHERE username = ?',
-      //       [username],
+      //       'SELECT * FROM customers WHERE username == ?',
+      //       [user],
       //       (txObj, resultSet) => {
-      //         if (resultSet.rowsAffected > 0) {
+      //         if (resultSet > 0) {
       //           const customersToCheck = [...customers]
       //           const index = customers.findIndex(
-      //             (customer) => customer.username === username
+      //             (customer) => customer.username === {user}
       //           );
-      //           if (customersToCheck[index].password == {password}){
+      //           if (customersToCheck[index].password === {password}){
       //             navigation.navigate('HomeScreen');   
       //           }else{
       //             Alert.alert('Error','Wrong user name or password')
@@ -53,17 +53,17 @@ const Login = ({ navigation }) => {
       //       (txObj, error) => console.log('Error', error)
       //     );
       //   });
-      // }
-      if (username == 'vanier' && password == '123') {
+      // };
+      if (user == 'vanier' && password == '123') {
         navigation.navigate('HomeScreen');
       } else {
         Alert.alert('Error','Wrong user name or password')
       }
       
-      console.log('Login', username, password);
+      console.log('Login', user, password);
     };
   
-    // Go to RegisterNow Page
+    // Go to RegisterNew Page
     const handleRegister = () => {
       navigation.navigate('RegisterNew');
     };
@@ -76,11 +76,10 @@ const Login = ({ navigation }) => {
             <Text style={styles.titleLogin}>Login Page</Text>
             <TextInput
             placeholder="Username"
-            value={username}
-            onChangeText={setUsername}
+            value={user}
+            onChangeText={setUser}
             style={styles.namestyle}
             />
-
             <TextInput
             placeholder="Password"
             value={password}

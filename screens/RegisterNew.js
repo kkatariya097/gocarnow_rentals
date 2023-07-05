@@ -55,12 +55,13 @@ const RegisterNew = ({ navigation }) => {
               password: password,
             });
             setCustomers(customersToUpdate);
-            console.log('Info before register:', customersToUpdate);
+            Alert.alert('Success', 'Customer registered successfully.');
             setFirstname(undefined);
             setLastname(undefined);
             setDOB(undefined);
             setUsername(undefined);
             setPassword(undefined);
+            {handleLogin()};
           },
           (txObj, error) => console.log('Error', error)
         );
@@ -113,7 +114,6 @@ const RegisterNew = ({ navigation }) => {
             secureTextEntry
             style={styles.namestyle}
             />
-
             <Pressable style={styles.buttonselect} onPress={handleRegister}>
             <Text style={styles.textselect}>Register</Text>
             </Pressable>
