@@ -9,6 +9,7 @@ import HomeScreen from "./screens/HomeScreen";
 import RegisterNew from "./screens/RegisterNew";
 import SelectCar from "./screens/SelectCar";
 import Reservations from "./screens/Reservations";
+import ConfirmReservation from "./screens/ConfirmReservation";
 
 const Stack = createNativeStackNavigator();
 
@@ -44,6 +45,11 @@ export default function App() {
           name="Reservations"
           component={Reservations}
           options={{ title: "Reservations" }}
+        />
+        <Stack.Screen
+          name="ConfirmReservation"
+          component={ConfirmReservation}
+          options={{ title: "ConfirmReservation" }}
         />
       </Stack.Navigator>
     </NavigationContainer>

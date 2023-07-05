@@ -17,6 +17,7 @@ import { useEffect, useState } from "react";
 import * as SQLite from "expo-sqlite";
 import Logo from "./Logo";
 import { TextInput } from "react-native-gesture-handler";
+import ConfirmReservation from "./ConfirmReservation";
 
 export default function Reservations({ navigation }) {
   //   const image = require("../images/backbround.jpg");
@@ -115,6 +116,14 @@ export default function Reservations({ navigation }) {
       </>
     ));
 
+    useEffect(() => {
+      const timer = setTimeout(() => {
+        navigation.navigate("ConfirmReservation");
+      }, 2000);
+  
+      return () => clearTimeout(timer);
+    }, [navigation]);
+    
   const handleBook = (car) => {
     db.transaction((tx) => {
       tx.executeSql(
@@ -150,7 +159,7 @@ export default function Reservations({ navigation }) {
       <Logo />
 
       <Text style={styles.text}>Congratulations, your reservation is confirmed...</Text>
-
+        
         <StatusBar style="auto" />
 
     </View>
