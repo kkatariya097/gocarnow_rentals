@@ -6,7 +6,7 @@ import Logo from './Logo';
 const TitlePage = ({ navigation }) => {
   useEffect(() => {
     const timer = setTimeout(() => {
-      navigation.navigate('HomeScreen');
+      navigation.navigate('Login');
     }, 2000);
 
     return () => clearTimeout(timer);

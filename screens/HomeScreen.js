@@ -79,7 +79,26 @@ const [modalVisible, setModalVisible] = useState(false);
     setModalVisible(false);
   };
 
+  // Validation of all the data and end date should be after start date.
   const handleBookCar = () => {
+    if (!selectedValue) {
+      alert('Please select a pick-up location.');
+      return;
+    }
+
+    if (!selectedStartDate) {
+      alert('Please select a trip start date.');
+      return;
+    }
+
+    if (!selectedEndDate) {
+      alert('Please select a trip end date.');
+      return;
+    }
+    if (selectedEndDate <= selectedStartDate) {
+      alert('End date should be after the start date.');
+      return;
+    }
     navigation.navigate('SelectCar');
   };
 
