@@ -18,7 +18,7 @@ import * as SQLite from "expo-sqlite";
 import Logo from "./Logo";
 import { TextInput } from "react-native-gesture-handler";
 
-export default function SelectCar({ navigation }) {
+export default function Reservations({ navigation }) {
   //   const image = require("../images/backbround.jpg");
 
   // Sample data for the FlatList
@@ -96,18 +96,23 @@ export default function SelectCar({ navigation }) {
 
   const showCars = () =>
     carData.map((car, index) => (
-      <View key={index} style={styles.modalItem}>
-        <Text>Car:</Text>
-        <Text style={styles.textselect}>{car.title}</Text>
-        <Text>Rate:</Text>
-        <Text style={styles.textselect}>{car.rateperday}</Text>
-        <Text>Number of seats:</Text>
-        <Text style={styles.textselect}>{car.seat}</Text>
-        <Image source={car.image} style={styles.image1} />
-        <Pressable style={styles.buttonselect} onPress={() => handleBook(car)}>
-          <Text style={styles.textbutton}>Book</Text>
-        </Pressable>
-      </View>
+      <>
+        <View key={index} style={styles.modalItem}>
+          <Text >Car:</Text>
+          <Text style={styles.textselect}>{car.title}</Text>
+          <Text >Rate:</Text>
+          <Text style={styles.textselect}>{car.rateperday}</Text>
+          <Text >Number of seats:</Text>
+          <Text style={styles.textselect}>{car.seat}</Text>
+          <Image source={car.image} style={styles.image1} />
+          <Pressable
+            style={styles.buttonselect}
+            onPress={() => handleBook(car)}
+          >
+            <Text style={styles.textbutton}>Book</Text>
+          </Pressable>
+        </View>
+      </>
     ));
 
   const handleBook = (car) => {
@@ -128,7 +133,10 @@ export default function SelectCar({ navigation }) {
           Alert.alert("Success", "Book confirmed.");
           setReservations(carsToInsert);
           console.log("Reservations", reservations);
-          navigation.navigate("Reservations");
+          // navigation.navigate(
+          //   'ListDestinations',
+          //   {SavedDestinations}
+          // )
         },
         (txObj, error) => {
           console.log("Error", error);
@@ -138,14 +146,14 @@ export default function SelectCar({ navigation }) {
   };
 
   return (
-    <>
-      <View style={styles.container}>
-        <Logo />
-        <Text style={styles.text}>Select your car...</Text>
-        <ScrollView>{showCars()}</ScrollView>
+    <View style={styles.container}>
+      <Logo />
+
+      <Text style={styles.text}>Congratulations, your reservation is confirmed...</Text>
+
         <StatusBar style="auto" />
-      </View>
-    </>
+
+    </View>
   );
 }
 
@@ -244,7 +252,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#f0f0f0",
   },
   image1: {
-    padding: 20,
     width: 120,
     height: 120,
   },

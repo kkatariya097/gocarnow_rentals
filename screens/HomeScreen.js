@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import Logo from './Logo';
 import { TextInput } from 'react-native-gesture-handler';
 import CalendarPicker from 'react-native-calendar-picker';
+import SelectCar from './SelectCar';
 
 export default function HomeScreen({ navigation }) {
 
@@ -76,6 +77,10 @@ const [modalVisible, setModalVisible] = useState(false);
   const handleItemPress = (item) => {
     setSelectedValue(item);
     setModalVisible(false);
+  };
+
+  const handleBookCar = () => {
+    navigation.navigate('SelectCar');
   };
 
 
@@ -168,7 +173,7 @@ const [modalVisible, setModalVisible] = useState(false);
         </View>
       </Modal>
 
-      <Pressable style={styles.buttonselect} >
+      <Pressable style={styles.buttonselect} onPress={handleBookCar}>
      
       <Text style={styles.textselect}>Book Car</Text>
     </Pressable>
@@ -228,6 +233,7 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     paddingHorizontal: 15,
     borderColor: '#ccc',
+    color: "white",
     borderWidth: 1,
     borderRadius: 15, 
     fontSize: 16,
