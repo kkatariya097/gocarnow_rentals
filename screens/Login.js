@@ -68,6 +68,11 @@ const Login = ({ navigation }) => {
       navigation.navigate('RegisterNew');
     };
 
+     // Go to About us page
+     const handleAboutUs = () => {
+      navigation.navigate('AboutUs');
+    };
+
     
     
   return (
@@ -93,6 +98,9 @@ const Login = ({ navigation }) => {
             <Text style={styles.title1}> Don't have account? </Text>
             <Pressable style={styles.buttonselect} onPress={handleRegister}>
             <Text style={styles.textselect}>Register Now</Text>
+            </Pressable>
+            <Pressable style={styles.buttonabout} onPress={handleAboutUs}>
+            <Text style={styles.textabout}>About us</Text>
             </Pressable>
 
       <StatusBar style="auto" />
@@ -148,6 +156,25 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     letterSpacing: 0.25,
     color: 'white',
+  },
+  buttonabout: {
+    alignItems: 'center',
+    paddingVertical: 10,
+    paddingHorizontal: 15,
+    borderRadius: 4,
+    backgroundColor: '#ccffcc',
+    width: 150,
+    height: 40,
+    marginLeft: 10,
+    marginTop: 200,
+  },
+  textabout: {
+    fontSize: 16,
+    lineHeight: 21,
+    fontWeight: 'bold',
+    letterSpacing: 0.25,
+    color: 'black',
+    fontStyle: 'italic',
   },
   title1:{
     fontSize: 18,

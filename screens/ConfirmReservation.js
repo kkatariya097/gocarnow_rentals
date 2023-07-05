@@ -1,16 +1,11 @@
 import { StatusBar } from "expo-status-bar";
 import {
   StyleSheet,
-  Button,
   View,
   Image,
   Text,
   ScrollView,
-  Modal,
-  TouchableOpacity,
-  ImageBackground,
   Pressable,
-  FlatList,
   ActivityIndicator,
   Alert,
 } from "react-native";
@@ -83,9 +78,6 @@ export default function ConfirmReservation({ navigation, route }) {
         <Pressable style={styles.buttonselect} onPress={() => handleCancel(reservationObj.id)}>
           <Text style={styles.textbutton}>Cancel reservation</Text>
         </Pressable>
-        {/* <Button title= "Cancel reservation" style={styles.buttonselect} onPress={handleCancel(reservationObj.id)}/>
-         <Text style={styles.textbutton}>Cancel reservation</Text> 
-      </Pressable> */}
       </View>
     ));
 
