@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, View, Text, TextInput, Button } from 'react-native';
+import { StyleSheet, View, Text, TextInput, Button, Pressable, Alert } from 'react-native';
 import * as SQLite from 'expo-sqlite';
 import Logo from './Logo';
 
@@ -34,7 +34,12 @@ const RegisterNew = ({ navigation }) => {
   }, []);
 
   // When user register of the first time: Data insertion in customers table
-  const handleRegister = () => {  
+  const handleRegister = () => { 
+    //Validation
+    if (!firstname || !lastname || !DOB || !username || !password) {
+      Alert.alert('Error', 'All fields are required');
+      return;
+    }
       db.transaction((tx) => {
         tx.executeSql(
           'INSERT INTO customers (firstname, lastname, dob, username, password) VALUES (?,?,?,?,?)',
@@ -71,35 +76,36 @@ const RegisterNew = ({ navigation }) => {
   return (
     <View style={styles.container}>
             <Logo/>
-            <Text>First name</Text>
+            <Text style={styles.titleLogin}>Register</Text>
+            <Text style={styles.title1}>First name</Text>
             <TextInput
             placeholder="First name"
             value={firstname}
             onChangeText={setFirstname}
             style={styles.namestyle}
             />
-            <Text>Last name</Text>
+            <Text style={styles.title1}>Last name</Text>
             <TextInput
             placeholder="Last name"
             value={lastname}
             onChangeText={setLastname}
             style={styles.namestyle}
             />
-            <Text>Date of birth</Text>
+            <Text style={styles.title1}>Date of birth</Text>
             <TextInput
             placeholder="Date of birth"
             value={DOB}
             onChangeText={setDOB}
             style={styles.namestyle}
             />
-            <Text>User name</Text>
+            <Text style={styles.title1}>User name</Text>
             <TextInput
             placeholder="User name"
             value={username}
             onChangeText={setUsername}
             style={styles.namestyle}
             />
-            <Text>Password</Text>
+            <Text style={styles.title1}>Password</Text>
             <TextInput
             placeholder="Password"
             value={password}
@@ -107,8 +113,13 @@ const RegisterNew = ({ navigation }) => {
             secureTextEntry
             style={styles.namestyle}
             />
-      <Button title="Register" onPress={handleRegister} />
-      <Button title="Back to Login" onPress={handleLogin} />
+
+            <Pressable style={styles.buttonselect} onPress={handleRegister}>
+            <Text style={styles.textselect}>Register</Text>
+            </Pressable>
+            <Pressable style={styles.buttonselect} onPress={handleLogin}>
+            <Text style={styles.textselect}>Back</Text>
+            </Pressable>
     </View>
   );
 };
@@ -119,6 +130,11 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'flex-start',
+  },
+  titleLogin:{
+    fontSize: 20,
+    fontWeight: '700',
+    marginTop: 5,
   },
   namestyle:
   {
@@ -131,11 +147,35 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 15, 
     fontSize: 16,
-    marginBottom: 10,
+    marginBottom: 5,
   },
   button:
   {
     marginTop: 50,
+  },
+  title1:{
+    fontSize: 18,
+    fontWeight: '400',
+    marginTop: 20,
+    marginRight: 210,
+  },
+  buttonselect: {
+    alignItems: 'center',
+    paddingVertical: 10,
+    paddingHorizontal: 15,
+    borderRadius: 4,
+    backgroundColor: 'black',
+    width: 150,
+    height: 40,
+    marginLeft: 10,
+    marginTop: 25,
+  },
+  textselect: {
+    fontSize: 16,
+    lineHeight: 21,
+    fontWeight: 'bold',
+    letterSpacing: 0.25,
+    color: 'white',
   },
 });
 

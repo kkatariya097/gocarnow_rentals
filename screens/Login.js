@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Button, View, Image, Text, ScrollView, TextInput, Alert} from 'react-native';
+import { StyleSheet, Button, View, Image, Text, ScrollView, TextInput, Alert, Pressable} from 'react-native';
 import { useEffect, useState } from 'react';
 import * as SQLite from 'expo-sqlite';
 import RegisterNew from './RegisterNew'
@@ -88,8 +88,14 @@ const Login = ({ navigation }) => {
             secureTextEntry
             style={styles.namestyle}
             />
-            <Button title="Login" onPress={handleLogin} />
-            <Button title="Register" onPress={handleRegister} />
+            <Pressable style={styles.buttonselect} onPress={handleLogin}>
+            <Text style={styles.textselect}>Login</Text>
+            </Pressable>
+            <Text style={styles.title1}> Don't have account? </Text>
+            <Pressable style={styles.buttonselect} onPress={handleRegister}>
+            <Text style={styles.textselect}>Register Now</Text>
+            </Pressable>
+
       <StatusBar style="auto" />
       
     </View>
@@ -114,7 +120,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 15, 
     fontSize: 16,
-    marginBottom: 10,
+    marginBottom: 20,
   },
   image: {
     width: 350, 
@@ -124,8 +130,31 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: '700',
     marginTop: 10,
-    paddingBottom: 10,
+    paddingBottom: 20,
   },
+  buttonselect: {
+    alignItems: 'center',
+    paddingVertical: 10,
+    paddingHorizontal: 15,
+    borderRadius: 4,
+    backgroundColor: 'black',
+    width: 150,
+    height: 40,
+    marginLeft: 10,
+    marginTop: 25,
+  },
+  textselect: {
+    fontSize: 16,
+    lineHeight: 21,
+    fontWeight: 'bold',
+    letterSpacing: 0.25,
+    color: 'white',
+  },
+  title1:{
+    fontSize: 18,
+    fontWeight: '400',
+    marginTop: 20,
+  }
 });
 
 export default Login;
