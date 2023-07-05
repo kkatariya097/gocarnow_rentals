@@ -57,6 +57,7 @@ export default function ConfirmReservation({ navigation, route }) {
             // setReservation(undefined);
             console.log('After delete', allreservations);
             Alert.alert('Success', 'Reservation caceled.')
+            navigation.navigate('HomeScreen');
           }
         },
         (txObj, error) => {
